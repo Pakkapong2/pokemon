@@ -77,9 +77,9 @@ if (session_status() == PHP_SESSION_NONE) {
             </div>
           </form>
 
-          <!-- เมนูแยกตามประเภทผู้ใช้ -->
+      
           <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin'): ?>
-            <!-- เมนูสำหรับแอดมิน -->
+           
             <li class="nav-item">
               <a class="nav-link" href="AdminDashboard.php"><i class="bi bi-speedometer2 me-1"></i>Dashboard</a>
             </li>
@@ -90,7 +90,7 @@ if (session_status() == PHP_SESSION_NONE) {
               <a class="nav-link" href="manage_products.php"><i class="bi bi-box-fill me-1"></i>จัดการสินค้า</a>
             </li>
           <?php else: ?>
-            <!-- เมนูสำหรับลูกค้า -->
+            
             <li class="nav-item">
               <a class="nav-link" href="Home.php"><i class="bi bi-house-door-fill me-1"></i>Home</a>
             </li>
@@ -100,7 +100,7 @@ if (session_status() == PHP_SESSION_NONE) {
           <?php endif; ?>
         </ul>
         <ul class="navbar-nav ms-auto">
-          <!-- 🛒 ตะกร้า (เฉพาะลูกค้า) -->
+          
           <?php if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'admin'): ?>
             <li class="nav-item me-2">
               <a class="nav-link position-relative" href="cart.php">
@@ -113,7 +113,7 @@ if (session_status() == PHP_SESSION_NONE) {
             </li>
           <?php endif; ?>
 
-          <!-- 👤 Dropdown User -->
+         
           <?php if (isset($_SESSION['username'])): ?>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
@@ -178,7 +178,7 @@ if (session_status() == PHP_SESSION_NONE) {
         });
     });
 
-    // ซ่อนผลลัพธ์เมื่อคลิกนอกช่อง
+    
     document.addEventListener("click", (e) => {
       if (!searchBox.contains(e.target)) {
         suggestBox.innerHTML = '';
