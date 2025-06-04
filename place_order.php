@@ -67,31 +67,31 @@ while ($item = $items_result->fetch_assoc()) {
     $items[] = ['product_id' => $product_id, 'quantity' => $quantity];
 }
 
-// เริ่ม transaction
+
 $conn->begin_transaction();
 
 try {
-    // เพิ่ม order
+ 
     $stmt = $conn->prepare("INSERT INTO orders (user_id, total_price, address, created_at) VALUES (?, ?, ?, NOW())");
     $stmt->bind_param("ids", $user_id, $total_price, $address);
     $stmt->execute();
     $order_id = $stmt->insert_id;
 
-    // เตรียม statement ล่วงหน้า
+ 
     $stmt_insert = $conn->prepare("INSERT INTO order_items (order_id, product_id, quantity) VALUES (?, ?, ?)");
     $stmt_stock = $conn->prepare("UPDATE products SET stock = stock - ? WHERE id = ?");
 
     foreach ($items as $item) {
-        // เพิ่มรายการสินค้าลง order_items
+ 
         $stmt_insert->bind_param("iii", $order_id, $item['product_id'], $item['quantity']);
         $stmt_insert->execute();
 
-        // หัก stock สินค้า
+
         $stmt_stock->bind_param("ii", $item['quantity'], $item['product_id']);
         $stmt_stock->execute();
     }
 
-    // ล้างตะกร้า
+
     $stmt = $conn->prepare("DELETE FROM cart_items WHERE cart_id = ?");
     $stmt->bind_param("i", $cart_id);
     $stmt->execute();
