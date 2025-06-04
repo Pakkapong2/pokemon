@@ -9,7 +9,7 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 
-// ดึงคำสั่งซื้อ
+
 $stmt = $conn->prepare("SELECT id, total_price, address, created_at FROM orders WHERE user_id = ? ORDER BY created_at DESC");
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
