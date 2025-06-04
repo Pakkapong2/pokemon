@@ -2,13 +2,13 @@
 session_start();
 require 'dbconnect.php';
 
-// 🔒 ตรวจสอบสิทธิ์ admin
+
 if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'admin') {
     echo "<script>alert('คุณไม่มีสิทธิ์เข้าถึงหน้านี้'); window.location='Login.php';</script>";
     exit();
 }
 
-// ดึงข้อมูลผู้ใช้ทั้งหมด (ยกเว้นตัวเอง)
+
 $currentUserId = $_SESSION['user_id'];
 $sql = "SELECT * FROM users WHERE id != $currentUserId ORDER BY created_at DESC";
 $result = $conn->query($sql);
